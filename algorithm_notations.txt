@@ -1,0 +1,3 @@
+W: A list containing lists of weights, each corresponding to a separate network.
+W[k]: A list containing a list of weights for each layer of a network.
+X[k]: W[k] after applying PCA to it.
