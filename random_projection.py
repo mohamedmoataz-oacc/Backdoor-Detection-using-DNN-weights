@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm import tqdm
 from sklearn.random_projection import SparseRandomProjection
 
 
@@ -12,16 +13,16 @@ def rp(weights: np.ndarray, n_components):
     # Apply the random projection to the weights
     projected_weights = grp.fit_transform(weights_flattened)
 
-    print("Original shape:", weights_flattened.shape)
-    print("Projected shape:", projected_weights.shape)
+    # print("Original shape:", weights_flattened.shape)
+    # print("Projected shape:", projected_weights.shape)
 
     return projected_weights
 
 def rp_network(layered_weights: np.ndarray, n_components=2000):
     projected_weights = []
-    for weights_tensor in layered_weights:
+    for weights_tensor in tqdm(layered_weights):
         projected_weights.append(rp(weights_tensor, n_components))
-        print('-----------------------')
+        # print('-----------------------')
 
     return np.vstack(projected_weights)
 
