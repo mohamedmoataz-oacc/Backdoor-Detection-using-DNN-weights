@@ -2,12 +2,12 @@ import numpy as np
 from sklearn.random_projection import SparseRandomProjection
 
 
-def rp(weights: np.ndarray):
+def rp(weights: np.ndarray, n_components):
     # Flatten the weights
     weights_flattened = weights.reshape(1, -1)
 
     # Define the random projection
-    grp = SparseRandomProjection(n_components=2000)
+    grp = SparseRandomProjection(n_components=n_components)
 
     # Apply the random projection to the weights
     projected_weights = grp.fit_transform(weights_flattened)
@@ -17,10 +17,10 @@ def rp(weights: np.ndarray):
 
     return projected_weights
 
-def rp_network(layered_weights: np.ndarray):
+def rp_network(layered_weights: np.ndarray, n_components=2000):
     projected_weights = []
     for weights_tensor in layered_weights:
-        projected_weights.append(rp(weights_tensor))
+        projected_weights.append(rp(weights_tensor, n_components))
         print('-----------------------')
 
     return np.vstack(projected_weights)

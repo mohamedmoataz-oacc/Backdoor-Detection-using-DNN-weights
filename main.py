@@ -5,10 +5,11 @@ import numpy as np
 
 
 if __name__ == '__main__':
-    model_path = "E:\\Desktop\\Final project\\code\\cifar10_resnet18_trojannn.onnx"
+    model_path = input("Enter model path: ")
 
+    rp_components = 2000
     try:
-        rp_weights = np.load('cifar10_resnet18_trojannn.npy')
+        rp_weights = np.load(f'cifar10_resnet18_trojannn_{rp_components}.npy')
         print("Weights loaded from file")
     except:
         weights = get_onnx_weights(model_path)
@@ -16,6 +17,7 @@ if __name__ == '__main__':
 
         rp_weights = rp_network(layers_weights)
         print(rp_weights.shape)
-        np.save('cifar10_resnet18_trojannn.npy', rp_weights)
+        np.save(f'cifar10_resnet18_trojannn_{rp_components}.npy', rp_weights)
 
-    apply_pca(rp_weights)
+    pca_weights = apply_pca(rp_weights)
+    print(pca_weights.shape)
